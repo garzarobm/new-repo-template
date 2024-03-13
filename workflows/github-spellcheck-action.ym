@@ -1,0 +1,57 @@
+on:
+  #push:
+    #branches: [ $default-branch ]
+  #pull_request:
+    #branches: [ $default-branch ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+
+jobs:
+  log-the-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Log level: $LEVEL"
+          echo "Tags: $TAGS"
+          echo "Environment: $ENVIRONMENT"
+        env:
+          LEVEL: ${{ inputs.logLevel }}
+          TAGS: ${{ inputs.tags }}
+          ENVIRONMENT: ${{ inputs.environment }}
+    
+
+- name: GitHub Spellcheck Action
+  # You may pin to the exact commit or the version.
+  # uses: rojopolis/spellcheck-github-actions@dbd2f1da869c05ad874fffeb6fe1ed50cd1a6e98
+  uses: rojopolis/spellcheck-github-actions@0.36.0
+  with:
+    # Alternate configuration file to use
+    config_path: # optional
+    # A list of source files or patterns to scan.
+This overrides your config file's `source` section.
+`task_name` must also be specified to use this option.
+
+    source_files: # optional
+    # Name of the PySpelling task to run
+    task_name: # optional
+    # Name of a generated output file containing output from pyspelling.
+
+    output_file: # optional
+          
